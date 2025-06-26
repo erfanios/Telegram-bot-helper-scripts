@@ -10,7 +10,7 @@
 # set -x # Uncomment to debug
 # set -n # Uncomment to check script syntax without execution
 # set -e # Break on the first failure
-source ~/.telelgram/config || {
+source ~/.telegram/config || {
   echo "Config not found under '~/.telelgram/config'."
   exit 1
 }
@@ -20,8 +20,10 @@ if [ -z "${t_api_key}" ] || [ -z "${t_chat_id}" ]; then
   exit 1
 fi
 
+stdin="$(cat)"
 all="$@"
+message="${stdin:-"${all}"}"
 
 curl -s -X POST https://api.telegram.org/bot${t_api_key}/sendMessage \
 	-d chat_id=${t_chat_id} \
-	-d text="${all:?'No message provided'}"
+	-d text="${message:?'No message provided'}"
