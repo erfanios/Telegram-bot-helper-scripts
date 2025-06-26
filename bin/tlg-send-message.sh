@@ -3,7 +3,7 @@
 # AUTHOR: ...
 # DATE: 2025-06-26T22:10:15
 # REV: 1.0
-# ARGUMENTS: [1:        ][2:		][3:		][4:        ]
+# ARGUMENTS: [1: Your Message ]
 #
 # PURPOSE: Sends message to telegram api 
 #
