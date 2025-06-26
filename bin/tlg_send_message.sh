@@ -10,10 +10,14 @@
 # set -x # Uncomment to debug
 # set -n # Uncomment to check script syntax without execution
 # set -e # Break on the first failure
+source ~/.telelgram/config || {
+  echo "Config not found under '~/.telelgram/config'."
+  exit 1
+}
 
-if [ -z "${t_api_key}" -o -z "${t_chat_id}" ]; then
-	echo "'t_chat_id' or 't_api_key' not defined in the environment" >&2
-	exit 1
+if [ -z "${t_api_key}" ] || [ -z "${t_chat_id}" ]; then
+  echo "'t_chat_id' or 't_api_key' not defined in the environment" >&2
+  exit 1
 fi
 
 all="$@"
