@@ -20,10 +20,18 @@ if [ -z "${t_api_key}" ] || [ -z "${t_chat_id}" ]; then
   exit 1
 fi
 
-stdin="$(cat)"
-all="$@"
-message="${stdin:-"${all}"}"
+# Read stdin into a variable if available
+if [ ! -t 0 ]; then
+  message="$(cat)"
+else
+  message="$*"
+fi
+
+if [ -z "${message}" ]; then 
+	exit 1
+fi
+
 
 curl -s -X POST https://api.telegram.org/bot${t_api_key}/sendMessage \
 	-d chat_id=${t_chat_id} \
-	-d text="${message:?'No message provided'}"
+	-d text="${message}"
